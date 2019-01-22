@@ -3,9 +3,9 @@
 {
     public class StateProgressEventArgs
     {
-        public CommandTypes Command { get; private set; }
+        public ICommand Command { get; private set; }
 
-        public StateProgressEventArgs(CommandTypes command)
+        public StateProgressEventArgs(ICommand command)
         {
             this.Command = Command;
         }

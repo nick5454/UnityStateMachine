@@ -5,71 +5,49 @@ using System.Numerics;
 using UnityStateMachine;
 
 namespace StateMachineLibrary
-
 {
     public class BaseContext : IEventSink, IContext
-
     {
-
         //public NPCCharacterTypes CharacterTypes { get; set; }
 
         private IAutomonInterface Communicator { get; set; }
 
         private IState state;
-
+        public event StateProgressEventHandler StateProgressChanged;
         private Stack<IState> _states = new Stack<IState>();
         public Vector2 CurrentPosition { get; set; }
         public IState CurrentState
-
         {
-
             get
-
             {
-
                 return state;
-
             }
-
         }
-
-
 
         public int StateCount { get { return _states.Count; } }
 
         public void Start()
-
         {
-
             if (_states.Count < 1)
-
             {
-
                 throw new ArgumentOutOfRangeException("Trying to start a State Machine without an initial State.");
-
             }
 
-
-
-
-
-
-
             this.PopState();
-
         }
-
-
 
         public void Stop()
-
         {
-
-
 
         }
 
-
+        protected void OnStateProgressChangedEvent(StateProgressEventArgs e)
+        {
+            if (StateProgressChanged != null)
+            {
+                StateProgressChanged(this, e);
+            }
+        }
 
         public void PushState(IState newState)
         {
@@ -95,7 +73,6 @@ namespace StateMachineLibrary
             {
                 throw new ArgumentOutOfRangeException("Trying to pop a state when there is not an available state to go to.");
             }
-
 
             SetState(_states.Count == 1 ? _states.Peek() : _states.Pop());
         }
@@ -142,54 +119,37 @@ namespace StateMachineLibrary
 
         }
 
-        //public virtual void Update(Transform transform)
-        //{
-        //    state.Update(transform);
-        //}
+        public virtual void Update(Transform transform)
+        {
+            //state.Update(transform);
+            if(Communicator != null)
+            {
+                Send(this, new Command(transform, CommandTypes.InProgress));
+            }
+        }
 
-        void IEventSink.Send(IEventSink source, ICommand command)
+        public void Send(IEventSink source, ICommand command)
         {
             throw new NotImplementedException();
         }
 
-
-
-        void IEventSink.Receive(ICommand command)
-
+        public void Receive(ICommand command)
         {
-
-            switch (command.command)
-
+            OnStateProgressChangedEvent(new StateProgressEventArgs(command));
+            switch (command.CommandDirective)
             {
-
                 case CommandTypes.InProgress:
-
                     break;
-
                 case CommandTypes.Completed:
-
                     this.PopState();
-
                     break;
-
                 case CommandTypes.Error:
-
                     break;
-
                 default:
-
-                    throw new NotImplementedException("Command not supported " + command.command.ToString());
-
+                    throw new NotImplementedException("Command not supported " + command.CommandDirective.ToString());
                     break;
-
             }
-
         }
-
-
-
-
-
     }
 
 }

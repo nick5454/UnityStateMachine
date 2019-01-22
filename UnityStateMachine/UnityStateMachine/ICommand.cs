@@ -1,14 +1,11 @@
-﻿namespace StateMachineLibrary
+﻿using UnityStateMachine;
 
+namespace StateMachineLibrary
 {
     public interface ICommand
-
     {
-
-        CommandTypes command { get; }
-
-
+        CommandTypes CommandDirective { get; }
+        Transform transform { get; set; }
 
     }
-
 }

@@ -1,20 +1,22 @@
-﻿namespace StateMachineLibrary
+﻿using UnityStateMachine;
+
+namespace StateMachineLibrary
 
 {
     public class Command : ICommand
 
     {
 
-        public Command(CommandTypes command)
+        public Command(Transform transform, CommandTypes command)
 
         {
 
-            this.command = command;
+            this.CommandDirective = command;
 
         }
 
-        public CommandTypes command { get; private set; }
-
+        public CommandTypes CommandDirective { get; private set; }
+        public Transform transform { get; set; }
     }
 
 }

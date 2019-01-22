@@ -22,18 +22,18 @@ namespace StateMachineLibrary
 
         private IAutomonInterface _automaton;
 
-        public event EventHandler ReadyForDecision;
-        public event EventHandler UpdateCalled;
-        public event StateProgressEventHandler StateProgressChanged;
+        //public event EventHandler ReadyForDecision;
+        //public event EventHandler UpdateCalled;
+        //public event StateProgressEventHandler StateProgressChanged;
 
         public float TotalTime { get { return _timeToDecision; } }
 
         public abstract bool CanMoveBetweenWaypoints { get; }
         public Vector2 OriginalPosition { get; set; }
-        protected void OnReadyForDecision(EventArgs e)
-        {
-            if (ReadyForDecision != null) ReadyForDecision(this, e);
-        }
+        //protected void OnReadyForDecision(EventArgs e)
+        //{
+        //    if (ReadyForDecision != null) ReadyForDecision(this, e);
+        //}
 
 
         public abstract bool CanCallEnd
@@ -56,18 +56,18 @@ namespace StateMachineLibrary
         { // clean up state
 
         }
-        protected void OnStateProgressChangedEvent(StateProgressEventArgs e)
-        {
-            if (StateProgressChanged != null)
-            {
-                StateProgressChanged(this, e);
-            }
-        }
+        //protected void OnStateProgressChangedEvent(StateProgressEventArgs e)
+        //{
+        //    if (StateProgressChanged != null)
+        //    {
+        //        StateProgressChanged(this, e);
+        //    }
+        //}
 
-        protected void OnUpdate(EventArgs e)
-        {
-            if (this.UpdateCalled != null) UpdateCalled(this, e);
-        }
+        //protected void OnUpdate(EventArgs e)
+        //{
+        //    if (this.UpdateCalled != null) UpdateCalled(this, e);
+        //}
 
         public void EvaluateState(Transform transform)
         {
@@ -108,10 +108,10 @@ namespace StateMachineLibrary
 
         public virtual bool IsInterruptable { get { return true; } }
 
-        public virtual void DoAction()
+        public virtual void DoAction(Transform transform)
         {
             // do nothing
-            Completed();
+            Completed(transform);
         }
 
         public virtual void Update(Transform transform)
@@ -123,7 +123,7 @@ namespace StateMachineLibrary
                 case CommandTypes.InProgress:
 
                     _timeSinceDecision += System.Environment.TickCount;
-                    OnUpdate(EventArgs.Empty);
+                    //OnUpdate(EventArgs.Empty);
 
                     if (_timeSinceDecision > _timeToDecision)
                     {
@@ -139,11 +139,10 @@ namespace StateMachineLibrary
         // events
         protected virtual void MakeDecision()
         {
-            OnReadyForDecision(EventArgs.Empty);
+            //OnReadyForDecision(EventArgs.Empty);
         }
 
-        protected void Completed()
-
+        protected void Completed(Transform transform)
         {
             if (CanCallEnd)
             {
@@ -153,48 +152,30 @@ namespace StateMachineLibrary
             {
                 Pause();
             }
-            _automaton.Send(this, new Command(CommandTypes.Completed));
-            OnStateProgressChanged(CommandTypes.Completed);
+            _automaton.Send(this, new Command(transform, CommandTypes.Completed));
+            //OnStateProgressChanged(CommandTypes.Completed);
         }
 
-
-
         public virtual void Start()
-
         {
-
             this.StateProgress = CommandTypes.InProgress;
             HasStarted = true;
         }
 
+        //private void OnStateProgressChanged(CommandTypes newType)
+        //{
+        //    if (this.StateProgress != newType)
+        //    {
+        //        this._progress = newType;
 
-
-        private void OnStateProgressChanged(CommandTypes newType)
-
-        {
-
-
-            if (this.StateProgress != newType)
-
-            {
-
-                this._progress = newType;
-
-                this.Send(this, new Command(newType));
-
-            }
-            OnStateProgressChangedEvent(new StateProgressEventArgs(newType));
-        }
+        //        this.Send(this, new Command(newType));
+        //    }
+        //}
 
         public void Send(IEventSink source, ICommand command)
-
         {
-
             _automaton.Send(source, command);
-
         }
-
-
 
         public void Receive(ICommand command)
 

@@ -41,7 +41,7 @@ public class FleeState : BaseState
         if (timeSinceFlee > TotalTime)
         {
             Debug.WriteLine("Done!!!!");
-            DoAction();
+            DoAction(transform);
             //StateContext.PushState(new FleeState(10));
         }
         else
@@ -53,9 +53,9 @@ public class FleeState : BaseState
         }
 
     }
-    public override void DoAction()
+    public override void DoAction(Transform transform)
     {
-        base.DoAction();
+        base.DoAction(transform);
 
 
     }

@@ -61,7 +61,7 @@ public class GoToWayPointState : BaseState
             if (timeSinceWaypoint > TotalTime)
             {
                 Debug.WriteLine("Done!!!!");
-                DoAction();
+                DoAction(transform);
                 //StateContext.PushState(new FleeState(10));
             }
             else

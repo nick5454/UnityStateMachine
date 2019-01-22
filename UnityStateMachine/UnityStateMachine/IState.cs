@@ -15,7 +15,7 @@ namespace StateMachineLibrary
 
         bool IsInterruptable { get; }
 
-        void DoAction();
+        void DoAction(Transform transform);
 
         //void Update(Transform transform);
 
