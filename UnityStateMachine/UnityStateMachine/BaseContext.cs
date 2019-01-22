@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Numerics;
+using UnityStateMachine;
 
 namespace StateMachineLibrary
 
@@ -8,7 +11,7 @@ namespace StateMachineLibrary
 
     {
 
-        public NPCCharacterTypes CharacterTypes { get; set; }
+        //public NPCCharacterTypes CharacterTypes { get; set; }
 
         private IAutomonInterface Communicator { get; set; }
 
@@ -121,7 +124,7 @@ namespace StateMachineLibrary
                 state = newState;
 
                 state.OriginalPosition = CurrentPosition;
-                Debug.Log("Orig " + state.OriginalPosition);
+                Debug.WriteLine("Orig " + state.OriginalPosition);
                 if (state.HasStarted)
                 {
                     state.Resume();

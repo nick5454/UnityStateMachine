@@ -1,4 +1,7 @@
-﻿using StateMachineLibrary;
+﻿using System.Diagnostics;
+using System.Numerics;
+using StateMachineLibrary;
+using UnityStateMachine;
 
 public class FleeState : BaseState
 {
@@ -37,13 +40,13 @@ public class FleeState : BaseState
 
         if (timeSinceFlee > TotalTime)
         {
-            Debug.Log("Done!!!!");
+            Debug.WriteLine("Done!!!!");
             DoAction();
             //StateContext.PushState(new FleeState(10));
         }
         else
         {
-            Debug.Log("Flee Result = " + result.ToString()
+            Debug.WriteLine("Flee Result = " + result.ToString()
             + "  timeSince = " + (timeSinceFlee).ToString()
             + "  tt/time = " + (tt / timeSinceFlee).ToString()
             );

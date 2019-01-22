@@ -1,4 +1,7 @@
-﻿using StateMachineLibrary;
+﻿using System.Diagnostics;
+using System.Numerics;
+using StateMachineLibrary;
+using UnityStateMachine;
 
 public class GoToWayPointState : BaseState
 {
@@ -57,13 +60,13 @@ public class GoToWayPointState : BaseState
 
             if (timeSinceWaypoint > TotalTime)
             {
-                Debug.Log("Done!!!!");
+                Debug.WriteLine("Done!!!!");
                 DoAction();
                 //StateContext.PushState(new FleeState(10));
             }
             else
             {
-                Debug.Log("Result = " + result.ToString()
+                Debug.WriteLine("Result = " + result.ToString()
                 + "  timeSince = " + (timeSinceWaypoint).ToString()
                 + "  tt/time = " + (tt / timeSinceWaypoint).ToString()
                 );

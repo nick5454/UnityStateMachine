@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Numerics;
+using UnityStateMachine;
 
 namespace StateMachineLibrary
 
 {
+
+
+    public delegate void StateProgressEventHandler(object sender, StateProgressEventArgs e);
+
     public abstract class BaseState : IEventSink, IState
 
     {

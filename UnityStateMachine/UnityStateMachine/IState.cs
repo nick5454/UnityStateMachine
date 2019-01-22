@@ -1,4 +1,7 @@
-﻿namespace StateMachineLibrary
+﻿using System.Numerics;
+using UnityStateMachine;
+
+namespace StateMachineLibrary
 
 {
     public interface IState

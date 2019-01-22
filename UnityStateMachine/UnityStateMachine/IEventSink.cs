@@ -13,4 +13,30 @@
 
     }
 
+    public enum CommandTypes
+
+    {
+
+        InProgress,
+
+        Paused,
+
+        Completed,
+
+        Error
+
+    }
+    public enum NPCCharacterTypes
+
+    {
+
+        Normal,
+
+        Patrol,
+
+        Watch,
+
+        Wander
+
+    }
 }

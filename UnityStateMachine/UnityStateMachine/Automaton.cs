@@ -1,5 +1,7 @@
-﻿namespace StateMachineLibrary
+﻿using System;
+using StateMachineLibrary;
 
+namespace UnityStateMachine
 {
     public class Automaton : IAutomonInterface
 
@@ -46,5 +48,4 @@
         }
 
     }
-
 }

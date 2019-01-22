@@ -1,4 +1,6 @@
-﻿namespace StateMachineLibrary
+﻿using System.Numerics;
+
+namespace StateMachineLibrary
 
 {
     public interface IContext
