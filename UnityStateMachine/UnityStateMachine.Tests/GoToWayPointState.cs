@@ -5,10 +5,10 @@ using UnityStateMachine;
 
 public class GoToWayPointState : BaseState
 {
-    public Transform WayPoint;
+    public Vector2 WayPoint;
     private float timeSinceWaypoint = 0f;
 
-    public GoToWayPointState(Vector2 originalPosition, Transform destVector, float elapsedTime) : base(originalPosition, elapsedTime)
+    public GoToWayPointState(Vector2 originalPosition, Vector2 destVector, float elapsedTime) : base(originalPosition, elapsedTime)
     {
         WayPoint = destVector;
 
@@ -56,7 +56,7 @@ public class GoToWayPointState : BaseState
             float tt = TotalTime;
             float result = (timeSinceWaypoint / tt);
             //float result = timeSinceWaypoint/5000f;
-            transform.position = Vector2.Lerp(OriginalPosition, WayPoint.position, result);
+            transform.position = Vector2.Lerp(OriginalPosition, WayPoint, result);
 
             if (timeSinceWaypoint > TotalTime)
             {
