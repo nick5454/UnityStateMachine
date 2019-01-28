@@ -38,6 +38,9 @@ namespace UnityStateMachine.Tests
                     var fleeState = new FleeState(_context.CurrentState.CurrentPosition, new Vector2(10, 10), 2f);
                 }
 
+               // Send the current position
+               // Do not haves access to physics - use hook
+               // End and pause does not update position
                 _context.Update(new Transform() { position = waypoints[0] });
                 done = false;
             }
