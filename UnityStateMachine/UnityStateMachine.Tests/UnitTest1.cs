@@ -41,6 +41,7 @@ namespace UnityStateMachine.Tests
                // Send the current position
                // Do not haves access to physics - use hook
                // End and pause does not update position
+               // set type destination or angle (enum)
                 _context.Update(new Transform() { position = waypoints[0] });
                 done = false;
             }
