@@ -90,6 +90,7 @@ namespace StateMachineLibrary
                     if (state.CanCallEnd)
                     {
                         state.End();
+                        //Communicator.Send(this, new Command(null))
                     }
                     else
                     {
@@ -130,7 +131,7 @@ namespace StateMachineLibrary
 
         public void Send(IEventSink source, ICommand command)
         {
-            throw new NotImplementedException();
+            Communicator.Send(source, command);
         }
 
         public void Receive(ICommand command)

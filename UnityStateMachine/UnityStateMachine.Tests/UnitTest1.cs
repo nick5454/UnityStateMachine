@@ -24,9 +24,23 @@ namespace UnityStateMachine.Tests
                 new Vector2(10,10)
             };
             _context.PushState(new GoToWayPointState(position, waypoints[0], 2));
+            _context.Start();
 
-            _context.Update(new Transform() { position = waypoints[0] });
+            bool done = false;
 
+            float tt = 0f;
+            while (!done )
+            {
+                tt += .05f;
+
+                if (tt > .05f)
+                {
+                    var fleeState = new FleeState(_context.CurrentState.CurrentPosition, new Vector2(10, 10), 2f);
+                }
+
+                _context.Update(new Transform() { position = waypoints[0] });
+                done = false;
+            }
 
         }
     }

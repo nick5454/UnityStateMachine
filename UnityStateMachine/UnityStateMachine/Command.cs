@@ -12,7 +12,7 @@ namespace StateMachineLibrary
         {
 
             this.CommandDirective = command;
-
+            this.transform = transform;
         }
 
         public CommandTypes CommandDirective { get; private set; }

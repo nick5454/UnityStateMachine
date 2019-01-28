@@ -30,6 +30,7 @@ namespace StateMachineLibrary
 
         public abstract bool CanMoveBetweenWaypoints { get; }
         public Vector2 OriginalPosition { get; set; }
+        public Vector2 CurrentPosition { get; set; }
         //protected void OnReadyForDecision(EventArgs e)
         //{
         //    if (ReadyForDecision != null) ReadyForDecision(this, e);
@@ -54,7 +55,7 @@ namespace StateMachineLibrary
         }
         public virtual void End()
         { // clean up state
-
+            _automaton.Send(this, new Command(new Transform(), CommandTypes.Completed));
         }
         //protected void OnStateProgressChangedEvent(StateProgressEventArgs e)
         //{
@@ -117,6 +118,7 @@ namespace StateMachineLibrary
         public virtual void Update(Transform transform)
         {
 
+            CurrentPosition = transform.position;
 
             switch (_progress)
             {
@@ -152,7 +154,7 @@ namespace StateMachineLibrary
             {
                 Pause();
             }
-            _automaton.Send(this, new Command(transform, CommandTypes.Completed));
+
             //OnStateProgressChanged(CommandTypes.Completed);
         }
 
@@ -181,18 +183,12 @@ namespace StateMachineLibrary
 
         {
 
-            // do nothing
-
-            //switch(command.command)
-
-            //{
-
-            //     case CommandTypes.Start:
-
-
-
-            //}
-
+            switch(command.CommandDirective)
+            {
+                case CommandTypes.InProgress:
+                    Update(command.transform);
+                    break;
+            }
         }
 
     }

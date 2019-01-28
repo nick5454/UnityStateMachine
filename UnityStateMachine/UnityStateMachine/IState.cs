@@ -23,6 +23,7 @@ namespace StateMachineLibrary
 
         bool CanMoveBetweenWaypoints { get; }
         Vector2 OriginalPosition { get; set; }
+        Vector2 CurrentPosition { get; set; }
         bool HasStarted { get; }
         void Start();
         void Pause(); // pause if continue later
